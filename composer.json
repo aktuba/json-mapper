@@ -1,0 +1,30 @@
+{
+  "name": "aktuba/json-mapper",
+  "description": "OOP container for json/array",
+  "homepage": "https://github.com/aktuba/json-mapper",
+  "keywords": [
+    "library",
+    "json",
+    "jsonmapper",
+    "json mapper"
+  ],
+  "authors": [
+    {
+      "name": "Ruslan Kalinov",
+      "email": "aktuba@yandex.ru",
+      "homepage": "https://aktuba.com",
+      "role": "Developer"
+    }
+  ],
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": "^7.1",
+    "tightenco/collect": "^6.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "aktuba\\": "src"
+    }
+  }
+}
