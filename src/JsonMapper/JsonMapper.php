@@ -64,77 +64,6 @@ abstract class JsonMapper
     }
 
     /**
-     * @param string $name
-     * @return mixed
-     * @throws JsonMapperException
-     */
-    public function __get(string $name)
-    {
-        if (!array_key_exists($name, $this->jsonData)) {
-            throw new JsonMapperException("Property {$name} not found in" . static::class);
-        }
-        return $this->getProperty($name);
-    }
-
-    /**
-     * @param string $name
-     * @param $value
-     * @throws JsonMapperException
-     */
-    public function __set(string $name, $value)
-    {
-        $this->setProperty($name, $value);
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function __isset(string $name): bool
-    {
-        return array_key_exists($name, $this->jsonData);
-    }
-
-    /**
-     * @param string $name
-     */
-    public function __unset(string $name)
-    {
-        unset($this->jsonData[$name]);
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     * @throws JsonMapperException
-     */
-    protected function getProperty(string $name)
-    {
-        $result = $this->jsonData[$name];
-
-        if (null === $result && array_key_exists($name, static::PROPERTIES)) {
-            [$type, $callback] = $this->getTypeAndCallback(static::PROPERTIES[$name]);
-            $result = $this->getValueByType($type, $name, $result, $callback);
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param string $name
-     * @param $value
-     * @throws JsonMapperException
-     */
-    protected function setProperty(string $name, $value): void
-    {
-        if (array_key_exists($name, static::PROPERTIES)) {
-            [$type, $callback] = $this->getTypeAndCallback(static::PROPERTIES[$name]);
-            $value = $this->getValueByType($type, $name, $value, $callback);
-        }
-        $this->jsonData[$name] = $value;
-    }
-
-    /**
      * @param array $jsonData
      * @return array
      */
@@ -290,6 +219,77 @@ abstract class JsonMapper
         }
 
         return $class;
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     * @throws JsonMapperException
+     */
+    public function __get(string $name)
+    {
+        if (!array_key_exists($name, $this->jsonData)) {
+            throw new JsonMapperException("Property {$name} not found in " . static::class);
+        }
+        return $this->getProperty($name);
+    }
+
+    /**
+     * @param string $name
+     * @param $value
+     * @throws JsonMapperException
+     */
+    public function __set(string $name, $value)
+    {
+        $this->setProperty($name, $value);
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     * @throws JsonMapperException
+     */
+    protected function getProperty(string $name)
+    {
+        $result = $this->jsonData[$name];
+
+        if (null === $result && array_key_exists($name, static::PROPERTIES)) {
+            [$type, $callback] = $this->getTypeAndCallback(static::PROPERTIES[$name]);
+            $result = $this->getValueByType($type, $name, $result, $callback);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $name
+     * @param $value
+     * @throws JsonMapperException
+     */
+    protected function setProperty(string $name, $value): void
+    {
+        if (array_key_exists($name, static::PROPERTIES)) {
+            [$type, $callback] = $this->getTypeAndCallback(static::PROPERTIES[$name]);
+            $value = $this->getValueByType($type, $name, $value, $callback);
+        }
+        $this->jsonData[$name] = $value;
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function __isset(string $name): bool
+    {
+        return array_key_exists($name, $this->jsonData);
+    }
+
+    /**
+     * @param string $name
+     */
+    public function __unset(string $name)
+    {
+        unset($this->jsonData[$name]);
     }
 
 }

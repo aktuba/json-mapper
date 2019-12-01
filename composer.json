@@ -19,7 +19,8 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": "^7.1"
+    "php": "^7.1",
+    "ext-mbstring": "*"
   },
   "autoload": {
     "psr-4": {
